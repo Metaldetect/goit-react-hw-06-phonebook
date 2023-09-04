@@ -14,6 +14,7 @@ import {
 } from './ContactFormStyles';
 import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/contactSlice';
+import Notiflix from 'notiflix';
 
 const phonebookSchema = Yup.object().shape({
   name: Yup.string()
@@ -51,13 +52,20 @@ function ContactForm({ contacts }) {
 
     const isDuplicateContact = isContactDuplicate(name, phone);
     if (isDuplicateContact) {
-      alert('Contact with the same name or phone number already exists!');
+      Notiflix.Notify.failure(
+        'Contact with the same name or phone number already exists!',
+        {
+          position: 'center-top',
+        }
+      );
       return;
     }
 
     const newContact = { id: nanoid(), name, phone };
     dispatch(addContact(newContact));
     actions.resetForm();
+
+    Notiflix.Notify.success('Contact added successfully!');
   };
 
   return (

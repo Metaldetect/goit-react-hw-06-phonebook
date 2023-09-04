@@ -27,7 +27,7 @@ export const Button = styled.button`
   height: 2.5rem;
   padding: 0.3125rem 0.46875rem;
   margin-top: 0.625rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -60,6 +60,11 @@ export const FormGroup = styled.div`
     border-radius: 0.25rem;
     font-size: 1rem;
     margin-bottom: 0.5rem;
+
+    &:focus {
+      box-shadow: 0 0 1rem #007bff;
+      outline: none;
+    }
   }
   .error {
     color: red;
