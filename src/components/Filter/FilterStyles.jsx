@@ -5,7 +5,7 @@ export const FilterWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2rem;
+  // margin-top: 1rem;
   margin-bottom: 2rem;
 `;
 
@@ -23,4 +23,9 @@ export const FilterInput = styled.input`
   border: 0.0625rem solid #ccc;
   border-radius: 0.25rem;
   margin-top: 0.3125rem;
+
+  &:focus {
+    box-shadow: 0 0 1rem #007bff;
+    outline: none;
+  }
 `;
