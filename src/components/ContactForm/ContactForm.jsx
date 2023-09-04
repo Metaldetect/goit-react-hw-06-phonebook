@@ -32,7 +32,7 @@ const phonebookSchema = Yup.object().shape({
     .required('Phone number is required'),
 });
 
-function ContactForm() {
+function ContactForm({ contacts }) {
   const initialValues = {
     name: '',
     phone: '',
@@ -40,8 +40,20 @@ function ContactForm() {
 
   const dispatch = useDispatch();
 
+  const isContactDuplicate = (name, phone) => {
+    return contacts.some(
+      contact => contact.name === name || contact.phone === phone
+    );
+  };
+
   const handleSubmit = (values, actions) => {
     const { name, phone } = values;
+
+    const isDuplicateContact = isContactDuplicate(name, phone);
+    if (isDuplicateContact) {
+      alert('Contact with the same name or phone number already exists!');
+      return;
+    }
 
     const newContact = { id: nanoid(), name, phone };
     dispatch(addContact(newContact));
@@ -77,7 +89,7 @@ function ContactForm() {
 }
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func,
+  contacts: PropTypes.array.isRequired,
 };
 
 export default ContactForm;
