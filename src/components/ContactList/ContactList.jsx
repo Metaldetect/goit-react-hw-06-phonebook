@@ -3,6 +3,7 @@ import { ContactListWrapper } from './ContactListStyles';
 import { useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
 import ContactItem from 'components/ContactListItem';
+import Notiflix from 'notiflix';
 
 function ContactList() {
   const filter = useSelector(getFilter);
@@ -13,7 +14,9 @@ function ContactList() {
   );
 
   if (!filteredContacts?.length) {
-    return <p>No contacts found.</p>;
+    Notiflix.Notify.info('No contacts found.', {
+      position: 'center-top',
+    });
   }
 
   return (
