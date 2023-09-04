@@ -1,8 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FilterWrapper, FilterLabel, FilterInput } from './FilterStyles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from 'redux/selectors';
+import { setFilter } from 'redux/filterSlice';
 
-function Filter({ value, onChange }) {
+function FilterComponent() {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+
+  const handleFilterChange = e => {
+    dispatch(setFilter(e.target.value.trim()));
+  };
   return (
     <FilterWrapper>
       <FilterLabel htmlFor="filter">Filter contacts:</FilterLabel>
@@ -10,16 +18,11 @@ function Filter({ value, onChange }) {
         type="text"
         id="filter"
         name="filter"
-        value={value}
-        onChange={e => onChange(e.target.value)}
+        value={filter}
+        onChange={handleFilterChange}
       />
     </FilterWrapper>
   );
 }
 
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
-
-export default Filter;
+export default FilterComponent;

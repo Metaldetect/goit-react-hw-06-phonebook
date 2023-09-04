@@ -1,8 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import contactSlice from './contactSlice';
-import filterSlice from './filterSlice';
+import { filtersReducer } from './filterSlice';
+import { contactsReducer } from './contactSlice';
 
-export const reducer = combineReducers({
-  contactSlice,
-  filterSlice,
+const rootReducer = combineReducers({
+  contacts: contactsReducer,
+  filter: filtersReducer,
 });
+
+export default rootReducer;

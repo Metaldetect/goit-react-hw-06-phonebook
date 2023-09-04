@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   ContactListWrapper,
   ContactListItem,
@@ -11,20 +10,43 @@ import {
 } from './ContactListStyles';
 import { RiContactsLine } from 'react-icons/ri';
 import { AiFillDelete } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/contactSlice';
+import { getContacts, getFilter } from 'redux/selectors';
 
-function ContactList({ contacts, onDeleteContact }) {
+function ContactList() {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+  const contacts = useSelector(getContacts);
+
+  console.log('Contacts:', contacts);
+  console.log('Filter:', filter);
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  console.log('Filtered Contacts:', filteredContacts);
+
+  if (!filteredContacts?.length) {
+    return <p>No contacts found.</p>;
+  }
+
+  const handleDeleteContact = contactId => {
+    dispatch(deleteContact(contactId));
+  };
   return (
     <ContactListWrapper>
-      {contacts.map(contact => (
-        <ContactListItem key={contact.id}>
+      {filteredContacts.map(({ id, name, phone }) => (
+        <ContactListItem key={id}>
           <ContactIcon>
             <RiContactsLine />
           </ContactIcon>
           <ContactDetails>
-            <ContactName>{contact.name}</ContactName>
-            <ContactPhone>{contact.phone}</ContactPhone>
+            <ContactName>{name}</ContactName>
+            <ContactPhone>{phone}</ContactPhone>
           </ContactDetails>
-          <DeleteButton onClick={() => onDeleteContact(contact.id)}>
+          <DeleteButton onClick={() => handleDeleteContact(id)}>
             <AiFillDelete />
           </DeleteButton>
         </ContactListItem>
@@ -32,16 +54,5 @@ function ContactList({ contacts, onDeleteContact }) {
     </ContactListWrapper>
   );
 }
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      phone: PropTypes.string,
-    })
-  ),
-  onDeleteContact: PropTypes.func.isRequired,
-};
 
 export default ContactList;
