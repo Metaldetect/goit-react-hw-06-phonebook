@@ -16,6 +16,7 @@ function FilterComponent() {
       <FilterLabel htmlFor="filter">Filter contacts:</FilterLabel>
       <FilterInput
         type="text"
+        placeholder="Enter a name"
         id="filter"
         name="filter"
         value={filter}
