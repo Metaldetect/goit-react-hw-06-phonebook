@@ -6,7 +6,7 @@ import rootReducer from './reducer';
 const persistConfig = {
   key: 'phonebook',
   storage,
-  // blacklist: ['filterSlice'],
+  blacklist: ['filter'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
