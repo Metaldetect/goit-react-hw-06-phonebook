@@ -17,8 +17,8 @@ function App() {
   return (
     <>
       <ContactForm contacts={contacts} />
-      <ContactList filter={filter} />
       <Filter value={filter} onChange={handleFilterChange} />
+      <ContactList filter={filter} />
     </>
   );
 }
