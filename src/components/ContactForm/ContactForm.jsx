@@ -12,6 +12,8 @@ import {
   Label,
   ErrorText,
 } from './ContactFormStyles';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactSlice';
 
 const phonebookSchema = Yup.object().shape({
   name: Yup.string()
@@ -30,17 +32,19 @@ const phonebookSchema = Yup.object().shape({
     .required('Phone number is required'),
 });
 
-function ContactForm({ onAddContact }) {
+function ContactForm() {
   const initialValues = {
     name: '',
     phone: '',
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (values, actions) => {
     const { name, phone } = values;
 
     const newContact = { id: nanoid(), name, phone };
-    onAddContact(newContact);
+    dispatch(addContact(newContact));
     actions.resetForm();
   };
 

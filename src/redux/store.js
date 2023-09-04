@@ -18,5 +18,9 @@ export const store = configureStore({
   middleware: getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export const persistor = persistStore(store);
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: getDefaultMiddleware({ serializableCheck: false }),
+// });
 
+export const persistor = persistStore(store);
