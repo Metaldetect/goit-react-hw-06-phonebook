@@ -21,6 +21,7 @@ function ContactList() {
 
   console.log('Contacts:', contacts);
   console.log('Filter:', filter);
+  console.log(Array.isArray(contacts));
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
